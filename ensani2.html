@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارشگیری روزانه گروه ماد</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #2d2d2d;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 30px 35px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .header {
+            text-align: center;
+            padding: 25px 0 30px;
+            border-bottom: 3px dashed #f3a683;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 3px 3px 0 rgba(37, 117, 252, 0.1);
+        }
+
+        .header h1 i {
+            color: #f39c12;
+            margin: 0 10px;
+        }
+
+        .header .sub {
+            font-size: 1.1rem;
+            color: #6c5ce7;
+            font-weight: 700;
+            background: #dfe6e9;
+            display: inline-block;
+            padding: 5px 25px;
+            border-radius: 30px;
+            margin-top: 8px;
+        }
+
+        .section {
+            background: #ffffffcc;
+            border-radius: 28px;
+            padding: 22px 25px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border-right: 6px solid #6c5ce7;
+            transition: 0.2s;
+        }
+
+        .section:hover {
+            border-right-color: #f39c12;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2d3436;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: #6c5ce7;
+            font-size: 1.7rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #2d3436;
+            font-size: 0.95rem;
+        }
+
+        .form-group label i {
+            color: #6c5ce7;
+            width: 22px;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #dfe6e9;
+            border-radius: 16px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #6c5ce7;
+            outline: none;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .subject-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        .subject-table th {
+            background: #6c5ce7;
+            color: white;
+            padding: 12px 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .subject-table th:first-child { border-radius: 16px 0 0 16px; }
+        .subject-table th:last-child { border-radius: 0 16px 16px 0; }
+
+        .subject-table td {
+            background: #f8f9fa;
+            padding: 8px 6px;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 12px;
+        }
+
+        .subject-table tr:hover td {
+            background: #e8e4f8;
+        }
+
+        .subject-table input, .subject-table select {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #d5d8df;
+            border-radius: 10px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.85rem;
+            background: white;
+        }
+
+        .subject-table .subject-name {
+            font-weight: 700;
+            color: #2d3436;
+            background: #f1f2f6;
+            padding: 6px 10px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .subject-table .subject-name i {
+            margin-left: 6px;
+            color: #6c5ce7;
+        }
+
+        .total-hours {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 40px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-align: center;
+            margin: 25px 0 10px;
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+        }
+
+        .total-hours i {
+            margin: 0 12px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(45deg, #f39c12, #e17055);
+            border: none;
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.25s;
+            box-shadow: 0 8px 25px rgba(225, 112, 85, 0.3);
+            font-family: 'Vazirmatn', sans-serif;
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 35px rgba(225, 112, 85, 0.5);
+        }
+
+        .btn-submit i {
+            margin-left: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- هدر -->
+    <div class="header">
+        <h1><i class="fas fa-clipboard-list"></i> گزارشگیری روزانه <i class="fas fa-star"></i></h1>
+        <div class="sub"><i class="fas fa-chalkboard-teacher"></i> گروه ماد – خانم فردوسی</div>
+    </div>
+
+    <!-- 1. مشخصات -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-id-card"></i> مشخصات و پایه تحصیلی</div>
+        <div class="grid-2">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> نام و نام خانوادگی</label>
+                <input type="text" id="studentName" placeholder="مثال: سارا محمدی">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-graduation-cap"></i> پایه تحصیلی</label>
+                <select id="grade">
+                    <option value="دهم">دهم</option>
+                    <option value="یازدهم">یازدهم</option>
+                    <option value="دوازدهم">دوازدهم</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. شرح مطالعه -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-book-open"></i> شرح مطالعه</div>
+
+        <h3 style="margin: 10px 0 15px; color: #2d3436;"><i class="fas fa-check-circle" style="color:#00b894;"></i> دروس تستی</h3>
+        <table class="subject-table" id="testSubjectsTable">
+            <thead>
+                <tr>
+                    <th>درس</th>
+                    <th>ساعت مطالعه</th>
+                    <th>تعداد تست</th>
+                    <th>کتب استفاده شده</th>
+                    <th>% پاسخگویی</th>
+                    <th>پایه</th>
+                </tr>
+            </thead>
+            <tbody id="testSubjectsBody"></tbody>
+        </table>
+
+        <h3 style="margin: 30px 0 15px; color: #2d3436;"><i class="fas fa-pencil-alt" style="color:#fdcb6e;"></i> دروس تشریحی</h3>
+        <table class="subject-table" id="descriptiveSubjectsTable">
+            <thead>
+                <tr>
+                    <th>درس</th>
+                    <th>ساعت مطالعه</th>
+                    <th>تعداد سوال</th>
+                    <th>کتب استفاده شده</th>
+                    <th>پایه</th>
+                </tr>
+            </thead>
+            <tbody id="descriptiveSubjectsBody"></tbody>
+        </table>
+    </div>
+
+    <!-- 3. ارزیابی -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-star"></i> ارزیابی کلی روز</div>
+        <div class="form-group">
+            <select id="evaluation" style="max-width: 300px;">
+                <option value="عالی">🔥 عالی</option>
+                <option value="خوب">😊 خوب</option>
+                <option value="متوسط">📖 متوسط</option>
+                <option value="ضعیف">😞 ضعیف</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 4. دروس باقی مانده -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-tasks"></i> دروس باقی‌مانده از برنامه</div>
+        <div class="form-group">
+            <textarea id="remainingLessons" placeholder="مثلاً: فلسفه درس ۴ و ۵، ریاضی مبحث حد ..."></textarea>
+        </div>
+    </div>
+
+    <!-- 5. توضیحات اضافه -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-comment"></i> توضیحات اضافه</div>
+        <div class="form-group">
+            <textarea id="extraNotes" placeholder="هر نکته یا توضیح دیگری..."></textarea>
+        </div>
+    </div>
+
+    <!-- مجموع ساعت -->
+    <div class="total-hours">
+        <i class="fas fa-clock"></i> مجموع ساعت مطالعه امروز: <span id="totalHoursValue">۰</span> ساعت
+    </div>
+
+    <!-- دکمه ارسال -->
+    <button class="btn-submit" id="submitBtn">
+        <i class="fas fa-paper-plane"></i> ارسال گزارش به مشاور
+    </button>
+
+</div>
+
+<!-- ============================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+    // ==============================================================
+    // 🔑 تنظیمات EmailJS (تکمیل شده با مقادیر شما)
+    // ==============================================================
+    
+    (function() {
+        emailjs.init("aMzoY3QtgiBON2D2G");  // ← Public Key شما
+    })();
+
+    // ==============================================================
+    // دروس تستی و تشریحی
+    // ==============================================================
+    const testSubjects = [
+        { name: 'ریاضی', icon: 'fa-calculator', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'اقتصاد', icon: 'fa-chart-line', grades: ['دهم'] },
+        { name: 'فنون ادبی', icon: 'fa-feather', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'عربی تخصصی', icon: 'fa-language', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'روانشناسی', icon: 'fa-brain', grades: ['یازدهم'] },
+        { name: 'جامعه‌شناسی', icon: 'fa-users', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'فلسفه', icon: 'fa-lightbulb', grades: ['یازدهم', 'دوازدهم'] },
+        { name: 'منطق', icon: 'fa-puzzle-piece', grades: ['دهم'] },
+        { name: 'تاریخ', icon: 'fa-history', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'جغرافیا', icon: 'fa-globe', grades: ['دهم', 'یازدهم', 'دوازدهم'] }
+    ];
+
+    const descriptiveSubjects = [
+        { name: 'فارسی', icon: 'fa-pen-fancy', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'عربی عمومی', icon: 'fa-mosque', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'دینی', icon: 'fa-hands-praying', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'انگلیسی', icon: 'fa-language', grades: ['دهم', 'یازدهم', 'دوازدهم'] },
+        { name: 'انسان و محیط زیست', icon: 'fa-tree', grades: ['یازدهم'] },
+        { name: 'سلامت و بهداشت', icon: 'fa-heartbeat', grades: ['دوازدهم'] }
+    ];
+
+    // ==============================================================
+    // رندر کردن جداول
+    // ==============================================================
+    function renderTable(subjects, tbodyId, isTest) {
+        const tbody = document.getElementById(tbodyId);
+        tbody.innerHTML = '';
+        subjects.forEach((sub, index) => {
+            const tr = document.createElement('tr');
+            const gradeOptions = sub.grades.map(g => 
+                `<option value="${g}">${g}</option>`
+            ).join('');
+
+            let cols = '';
+            if (isTest) {
+                cols = `
+                    <td><span class="subject-name"><i class="fas ${sub.icon}"></i> ${sub.name}</span></td>
+                    <td><input type="number" step="0.5" min="0" class="test-hour" data-index="${index}" placeholder="ساعت"></td>
+                    <td><input type="number" min="0" class="test-count" data-index="${index}" placeholder="تعداد"></td>
+                    <td><input type="text" class="test-book" data-index="${index}" placeholder="نام کتاب"></td>
+                    <td><input type="number" step="0.1" min="0" max="100" class="test-percent" data-index="${index}" placeholder="%"></td>
+                    <td><select class="test-grade" data-index="${index}">${gradeOptions}</select></td>
+                `;
+            } else {
+                cols = `
+                    <td><span class="subject-name"><i class="fas ${sub.icon}"></i> ${sub.name}</span></td>
+                    <td><input type="number" step="0.5" min="0" class="desc-hour" data-index="${index}" placeholder="ساعت"></td>
+                    <td><input type="number" min="0" class="desc-count" data-index="${index}" placeholder="تعداد سوال"></td>
+                    <td><input type="text" class="desc-book" data-index="${index}" placeholder="نام کتاب"></td>
+                    <td><select class="desc-grade" data-index="${index}">${gradeOptions}</select></td>
+                `;
+            }
+            tr.innerHTML = cols;
+            tbody.appendChild(tr);
+        });
+    }
+
+    renderTable(testSubjects, 'testSubjectsBody', true);
+    renderTable(descriptiveSubjects, 'descriptiveSubjectsBody', false);
+
+    // ==============================================================
+    // محاسبه جمع ساعت
+    // ==============================================================
+    function calculateTotalHours() {
+        let total = 0;
+        document.querySelectorAll('.test-hour, .desc-hour').forEach(input => {
+            const val = parseFloat(input.value);
+            if (!isNaN(val) && val > 0) total += val;
+        });
+        document.getElementById('totalHoursValue').textContent = total.toFixed(1);
+    }
+
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('test-hour') || e.target.classList.contains('desc-hour')) {
+            calculateTotalHours();
+        }
+    });
+
+    calculateTotalHours();
+
+    // ==============================================================
+    // ارسال ایمیل
+    // ==============================================================
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        // جمع‌آوری داده‌ها
+        const studentName = document.getElementById('studentName').value || 'نامشخص';
+        const grade = document.getElementById('grade').value || 'نامشخص';
+        const evaluation = document.getElementById('evaluation').value || 'متوسط';
+        const remaining = document.getElementById('remainingLessons').value || 'ندارد';
+        const extra = document.getElementById('extraNotes').value || 'ندارد';
+        const totalHours = document.getElementById('totalHoursValue').textContent || '۰';
+
+        // دروس تستی
+        let testData = '';
+        document.querySelectorAll('#testSubjectsBody tr').forEach((tr, idx) => {
+            const hour = tr.querySelector('.test-hour').value || '۰';
+            const count = tr.querySelector('.test-count').value || '۰';
+            const book = tr.querySelector('.test-book').value || 'نامشخص';
+            const percent = tr.querySelector('.test-percent').value || '۰';
+            const gradeVal = tr.querySelector('.test-grade').value || 'نامشخص';
+            testData += `${testSubjects[idx].name}: ${hour}ساعت, ${count}تست, کتاب:${book}, ${percent}%, پایه:${gradeVal}\n`;
+        });
+
+        // دروس تشریحی
+        let descData = '';
+        document.querySelectorAll('#descriptiveSubjectsBody tr').forEach((tr, idx) => {
+            const hour = tr.querySelector('.desc-hour').value || '۰';
+            const count = tr.querySelector('.desc-count').value || '۰';
+            const book = tr.querySelector('.desc-book').value || 'نامشخص';
+            const gradeVal = tr.querySelector('.desc-grade').value || 'نامشخص';
+            descData += `${descriptiveSubjects[idx].name}: ${hour}ساعت, ${count}سوال, کتاب:${book}, پایه:${gradeVal}\n`;
+        });
+
+        // پارامترهای ارسال به EmailJS
+        const templateParams = {
+            student_name: studentName,
+            grade: grade,
+            total_hours: totalHours,
+            test_subjects: testData || 'داده‌ای وجود ندارد',
+            descriptive_subjects: descData || 'داده‌ای وجود ندارد',
+            evaluation: evaluation,
+            remaining_lessons: remaining,
+            extra_notes: extra,
+            send_time: new Date().toLocaleString('fa-IR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
+        };
+
+        // ==============================================================
+        // 📧 ارسال ایمیل با EmailJS (تکمیل شده با مقادیر شما)
+        // ==============================================================
+        
+        emailjs.send(
+            'service_0437dvk',        // ← Service ID شما
+            'template_6tfrz9h',       // ← Template ID شما
+            templateParams
+        )
+        .then(function(response) {
+            alert('✅ گزارش با موفقیت ارسال شد! مشاور شما پاسخگو خواهد بود.');
+            console.log('SUCCESS!', response.status, response.text);
+        })
+        .catch(function(error) {
+            alert('❌ خطا در ارسال ایمیل. لطفاً دوباره تلاش کنید.');
+            console.error('FAILED...', error);
+        });
+    });
+</script>
+
+</body>
+</html>
